@@ -1,0 +1,42 @@
+{{!-- Matricula  um  aluno em uma materia. --}}
+<div class="form-group">
+    <select name="aluno" id="aluno" class="form-control">
+        <option value="" selected>Selecione um Aluno</option>
+        {{#each aluno}}
+        <option value="{{matricula}}">{{nome}} {{sobrenome}}</option>
+        {{/each}}
+    </select>
+</div>
+{{!--Seleção de diciplinas. --}}
+<div class="form-group ">
+    <select name="materia" id="materia" class="form-control">
+        <option value="Teste" selected>Selecioneuma disciplina</option>
+        {{#each materia}}
+        <option value="{{cod}}">{{nome}}</option>
+        {{/each}}
+    </select>
+</div>
+<div class="form-group">
+    <button type="" id="add" class="btn btn-outline-primary form-control">Matricular</button>
+</div>
+
+<div class="bg-dark">
+    <pre id="cod" class="text-white"></pre>
+</div>
+
+<script>
+    $('#add').click(() => {
+        $.ajax({
+            type: "POST",
+            url: '/adddisciplina',
+            dataType: 'html',
+            data: {
+                aluno: $('#aluno').val(),
+                materia: $('#materia').val()
+            },
+            success: data => {
+                $('#cod').text(data)
+            }
+        })
+    })
+</script>
